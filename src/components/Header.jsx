@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { GoSignIn } from "react-icons/go";
+import { GoSignIn, GoSignOut } from "react-icons/go";
 import { FaUserAlt } from "react-icons/fa";
+import { BiRestaurant } from "react-icons/bi";
+
 const Header = () => {
     const [scroll, setScroll] = useState(false);
 
@@ -26,10 +28,13 @@ const Header = () => {
                         </div>
                     </div>
                     <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-br-3xl relative">
-                        <GoSignIn className="text-xl text-white" />
+                        <BiRestaurant className="text-xl text-white" />
+                    </div>
+                    <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-bl-3xl relative">
+                        <FaUserAlt className="text-xl text-white" />
                     </div>
                     <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-br-3xl relative">
-                        <FaUserAlt className="text-xl text-white" />
+                        <GoSignOut className="text-xl text-white" />
                     </div>
                 </div>
             </nav>
