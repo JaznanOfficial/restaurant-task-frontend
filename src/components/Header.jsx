@@ -4,6 +4,8 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { GoSignIn, GoSignOut } from "react-icons/go";
 import { FaUserAlt } from "react-icons/fa";
 import { BiRestaurant } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { BsFillBellFill } from "react-icons/bs";
 
 const Header = () => {
     const [scroll, setScroll] = useState(false);
@@ -20,22 +22,40 @@ const Header = () => {
                     <h4 className="text-xl font-semibold">Taste</h4>
                     <span className="text-[0.65rem] font-bold opacity-70">Restaurant && BBQ</span>
                 </div>
+                <div
+                    
+                    className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-xl relative"
+                >
+                    <BsFillBellFill className="text-xl text-white" />
+                    <div className="absolute bg-red-500 text-[0.65rem] w-4 h-4 right-1 top-2 flex items-center justify-center rounded-full">
+                        2
+                    </div>
+                </div>
                 <div className="flex flex-row gap-3">
-                    <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-bl-3xl relative">
+                    <Link
+                        to="/cart"
+                        className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-bl-3xl relative"
+                    >
                         <AiOutlineShoppingCart className="text-xl text-white" />
                         <div className="absolute bg-red-500 text-[0.65rem] w-4 h-4 right-1 top-2 flex items-center justify-center rounded-full">
                             2
                         </div>
-                    </div>
-                    <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-br-3xl relative">
+                    </Link>
+                    <Link
+                        to="/restaurant"
+                        className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-br-3xl relative"
+                    >
                         <BiRestaurant className="text-xl text-white" />
-                    </div>
-                    <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-bl-3xl relative">
+                    </Link>
+                    <Link
+                        to="/user"
+                        className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-bl-3xl relative"
+                    >
                         <FaUserAlt className="text-xl text-white" />
-                    </div>
-                    <div className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-br-3xl relative">
+                    </Link>
+                    <button className="cursor-pointer flex items-center justify-center w-10 h-12 bg-black rounded-t-xl rounded-br-3xl relative">
                         <GoSignOut className="text-xl text-white" />
-                    </div>
+                    </button>
                 </div>
             </nav>
         </div>
