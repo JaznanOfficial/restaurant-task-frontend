@@ -75,7 +75,7 @@ const CartPage = () => {
                                 </span>
                             </Link>
                         </li>
-                        <li>Cart</li>
+                        <Link to={"/"}>Home</Link>
                     </ul>
                 </div>
             </div>
