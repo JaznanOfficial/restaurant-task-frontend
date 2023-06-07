@@ -95,8 +95,8 @@ const CartPage = () => {
                                             <div className="cart-item grid" key={cartProduct.id}>
                                                 <div className="cart-item-img flex flex-column bg-white">
                                                     <img
-                                                        src={cartProduct.images[0]}
-                                                        alt={cartProduct.title}
+                                                        src={cartProduct.image}
+                                                        alt={cartProduct.name}
                                                     />
                                                     <button
                                                         type="button"
@@ -173,7 +173,7 @@ const CartPage = () => {
                                 </div>
                                 <button
                                     type="button"
-                                    className="btn-danger"
+                                    className="btn-danger bg-red-600 text-white"
                                     onClick={() => dispatch(clearCart())}
                                 >
                                     <span className="fs-16">Clear Cart</span>
@@ -215,7 +215,7 @@ const CartPage = () => {
                                     <div className="cart-summary-btn">
                                         <button
                                             type="button"
-                                            className="btn-secondary"
+                                            className="btn-secondary bg-black text-white hover:bg-black hover:text-white"
                                             onClick={payToStripe}
                                             disabled={loading}
                                         >
