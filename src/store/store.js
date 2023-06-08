@@ -3,6 +3,7 @@ import productReducer from "./productSlice";
 import categoryReducer from "./categorySlice";
 import modalReducer from "./modalSlice";
 import cartReducer from "./cartSlice";
+import restaurantReducer from "./restaurantSlice";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
         category: categoryReducer,
         modal: modalReducer,
         cart: cartReducer,
+        restaurant: restaurantReducer,
     },
 });
 

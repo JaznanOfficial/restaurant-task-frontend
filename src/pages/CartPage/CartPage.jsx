@@ -6,6 +6,7 @@ import { removeFromCart, toggleCartQty, getCartTotal, clearCart } from "../../st
 import { formatPrice } from "../../utils/helpers";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutLoader from "../../components/Loader/CheckoutLoader";
+import { addToRestaurant } from "../../store/restaurantSlice";
 
 const CartPage = () => {
     const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ const CartPage = () => {
         deliveryCharge,
     } = useSelector((state) => state.cart);
     const grandTotal = totalAmount + deliveryCharge;
-    console.log(grandTotal);
+    // console.log(grandTotal);
 
     useEffect(() => {
         dispatch(getCartTotal());
@@ -26,40 +27,52 @@ const CartPage = () => {
 
     const emptyCartMsg = <h4 className="text-red fw-6">No items found!</h4>;
 
-    const stripePromise = loadStripe(
-        "pk_test_51LRzbYAMDIcwcvPooBdPWBaZ09NRclivm40bZVDjlz3zUiUcDhrHYQ5FDHSZm3XGiQuoEW4bVjVycNAwqJQXyHhC00sWaceOkD"
-    );
+    // const stripePromise = loadStripe(
+    //     "pk_test_51LRzbYAMDIcwcvPooBdPWBaZ09NRclivm40bZVDjlz3zUiUcDhrHYQ5FDHSZm3XGiQuoEW4bVjVycNAwqJQXyHhC00sWaceOkD"
+    // );
 
     const payToStripe = async () => {
-        setLoading(true);
-        const stripe = await stripePromise;
-        const response = await fetch("https://blogs-server-ms.onrender.com/create-payment-page", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                amount: grandTotal, // Pass the total amount from your state
-                currency: "usd", // Specify the currency code
-                // name: cartProducts.title,
-                // quantity:cartProducts.quantity
-            }),
-        });
-        const { sessionId } = await response.json();
-        const result = await stripe.redirectToCheckout({
-            sessionId: sessionId,
-        });
+        // setLoading(true);
+        // const stripe = await stripePromise;
+        // const response = await fetch("https://blogs-server-ms.onrender.com/create-payment-page", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         amount: grandTotal, // Pass the total amount from your state
+        //         currency: "usd", // Specify the currency code
+        //         // name: cartProducts.title,
+        //         // quantity:cartProducts.quantity
+        //     }),
+        // });
+        // const { sessionId } = await response.json();
+        // const result = await stripe.redirectToCheckout({
+        //     sessionId: sessionId,
+        // });
 
-        setLoading(false);
+        // setLoading(false);
 
-        if (result.error) {
-            console.error(result.error.message);
-        }
-        // Clear the cart after successful checkout
-        else {
-            console.log(result);
-            dispatch(clearCart());
-        }
+        // if (result.error) {
+        //     console.error(result.error.message);
+        // }
+        // // Clear the cart after successful checkout
+        // else {
+        //     console.log(result);
+        //     dispatch(clearCart());
+        // }
+
+        const data = {
+            orderedProducts: cartProducts,
+            totalItems: totalItems,
+            totalAmount: totalAmount + deliveryCharge,
+        };
+        // console.log(data);
+
+        dispatch(addToRestaurant(data));
+
+        // dispatch(clearCart());
+        window.alert("Your order successfully placed");
     };
 
     return (

@@ -36,8 +36,10 @@ const cartSlice = createSlice({
                         }
                     });
                     state.data = tempCart;
+                    console.log(state.data);
                     storeInLocalStorage(state.data);
                 } else {
+                    console.log(state.data);
                     state.data.push(action.payload);
                     storeInLocalStorage(state.data);
                 }
