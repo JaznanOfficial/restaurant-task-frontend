@@ -1,12 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const fetchFromLocalStorage = () => {
-    let restaurant = localStorage.getItem("restaurant");
-    if (restaurant) {
-        return JSON.parse(localStorage.getItem("restaurant"));
-    } else {
-        return [];
-    }
+    const restaurant = localStorage.getItem("restaurant");
+    return restaurant
+        ? JSON.parse(restaurant)
+        : { data: [], totalItems: 0, totalAmount: 0, accepted: false, rejected: false };
 };
 
 const storeInLocalStorage = (data) => {
@@ -15,108 +13,77 @@ const storeInLocalStorage = (data) => {
 
 const restaurantSlice = createSlice({
     name: "restaurant",
-    initialState: {
-        data: fetchFromLocalStorage(),
-        totalItems: 0,
-        totalAmount: 0,
-        accepted: false,
-        rejected: false,
-        notified: true,
-
-        // deliveryCharge: 1000,
-    },
+    initialState: fetchFromLocalStorage(),
     reducers: {
-        addToRestaurant(state, action) {
-            console.log(state);
-            const tempRestaurant = {
-                data: action.payload.orderedProducts,
-                totalItems: action.payload.totalItems,
-                totalAmount: action.payload.totalAmount,
-                accepted: false,
-                rejected: false,
-                notified: true,
-            };
-            storeInLocalStorage(tempRestaurant);
-            return {
-                ...state,
-                data: action.payload.orderedProducts,
-                totalItems: action.payload.totalItems,
-                totalAmount: action.payload.totalAmount,
-            };
-
-            // if (Array.isArray(state.data)) {
-            //     const tempItem = state.data.find((item) => item.id === action.payload.id);
-            //     if (tempItem) {
-            //         const tempRestaurant = state.data.map((item) => {
-            //             if (item.id === action.payload.id) {
-            //                 let newQty = item.quantity + action.payload.quantity;
-            //                 let newTotalPrice = newQty * item.price;
-            //                 return { ...item, quantity: newQty, totalPrice: newTotalPrice };
-            //             } else {
-            //                 return item;
-            //             }
-            //         });
-            //         state.data = tempRestaurant;
-            //         storeInLocalStorage(state.data);
-            //     } else {
-            //         state.data.push(action.payload);
-            //         storeInLocalStorage(state.data);
+        addToRestaurant: (state, action) => {
+            const { orderedProducts, totalItems, totalAmount } = action.payload;
+            state.data = orderedProducts;
+            state.totalItems = totalItems;
+            state.totalAmount = totalAmount;
+            state.accepted = false;
+            state.rejected = false;
+            storeInLocalStorage(state);
+            // setTimeout(() => {
+            //     if (!state.accepted) {
+            //         state.rejected = true;
+            //         storeInLocalStorage(state);
             //     }
-            // } else {
-            //     // Handle the case when state.data is not an array
-            //     console.error("state.data is not an array");
-            // }
+            // }, 10000); // 10 seconds
         },
-
-        removeFromRestaurant(state, action) {
-            const tempCart = state.data.filter((item) => item.id !== action.payload);
-            state.data = tempCart;
-            storeInLocalStorage(state.data);
+        acceptRestaurant: (state) => {
+            state.accepted = true;
+            state.rejected = false;
+            storeInLocalStorage(state);
+        },
+        rejectRestaurant: (state) => {
+            state.accepted = false;
+            state.rejected = true;
+            storeInLocalStorage(state);
+        },
+        removeFromRestaurant: (state, action) => {
+            const itemId = action.payload;
+            state.data = state.data.filter((item) => item.id !== itemId);
+            storeInLocalStorage(state);
+        },
+        toggleRestaurantQty: (state, action) => {
+            const { id, type } = action.payload;
+            state.data = state.data.map((item) => {
+                if (item.id === id) {
+                    let tempQty = item.quantity;
+                    if (type === "INC") {
+                        tempQty++;
+                    } else if (type === "DEC") {
+                        tempQty = Math.max(tempQty - 1, 1);
+                    }
+                    const tempTotalPrice = tempQty * item.price;
+                    return { ...item, quantity: tempQty, totalPrice: tempTotalPrice };
+                }
+                return item;
+            });
+            storeInLocalStorage(state);
+        },
+        getRestaurantTotal: (state) => {
+            state.totalAmount = state.data.reduce(
+                (restaurantTotal, restaurantItem) => (restaurantTotal += restaurantItem.totalPrice),
+                0
+            );
+            state.totalItems = state.data.length;
         },
         clearRestaurant: (state) => {
-            // Clear the cart items
             state.data = [];
             state.totalItems = 0;
             state.totalAmount = 0;
-            state.deliveryCharge = 0;
-        },
-        toggleRestaurantQty(state, action) {
-            const tempRestaurant = state.data.map((item) => {
-                if (item.id === action.payload.id) {
-                    let tempQty = item.quantity;
-                    let tempTotalPrice = item.totalPrice;
-                    if (action.payload.type === "INC") {
-                        tempQty++;
-                        tempTotalPrice = tempQty * item.price;
-                    }
-                    if (action.payload.type === "DEC") {
-                        tempQty--;
-                        if (tempQty < 1) tempQty = 1;
-                        tempTotalPrice = tempQty * item.price;
-                    }
-                    return { ...item, quantity: tempQty, totalPrice: tempTotalPrice };
-                } else {
-                    return item;
-                }
-            });
-            state.data = tempRestaurant;
-            storeInLocalStorage(state.data);
-        },
-        getRestaurantTotal(state) {
-            if (Array.isArray(state.data)) {
-                state.totalAmount = state.data.reduce((restaurantTotal, restaurantItem) => {
-                    return (restaurantTotal += restaurantItem.totalPrice);
-                }, 0);
-                state.totalItems = state.data.length;
-            } else {
-                console.error("state.data is not an array");
-            }
+            state.accepted = false;
+            state.rejected = false;
+            localStorage.removeItem("restaurant");
         },
     },
 });
 
 export const {
     addToRestaurant,
+    acceptRestaurant,
+    rejectRestaurant,
     removeFromRestaurant,
     toggleRestaurantQty,
     getRestaurantTotal,

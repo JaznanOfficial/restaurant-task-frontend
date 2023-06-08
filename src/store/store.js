@@ -3,7 +3,7 @@ import productReducer from "./productSlice";
 import categoryReducer from "./categorySlice";
 import modalReducer from "./modalSlice";
 import cartReducer from "./cartSlice";
-import restaurantReducer from "./restaurantSlice";
+import restaurantReducer, { addToRestaurant, clearRestaurant } from "./restaurantSlice";
 
 const store = configureStore({
     reducer: {
@@ -14,5 +14,13 @@ const store = configureStore({
         restaurant: restaurantReducer,
     },
 });
+
+// Load data from localStorage for restaurant slice
+const storedData = JSON.parse(localStorage.getItem("restaurant"));
+if (storedData) {
+    store.dispatch(addToRestaurant(storedData));
+} else {
+    store.dispatch(clearRestaurant());
+}
 
 export default store;
