@@ -4,10 +4,15 @@ const fetchFromLocalStorage = () => {
     const restaurant = localStorage.getItem("restaurant");
     return restaurant
         ? JSON.parse(restaurant)
-        : { data: [], totalItems: 0, totalAmount: 0, accepted: false, rejected: false };
+        : {
+              data: [],
+              totalItems: 0,
+              totalAmount: 0,
+              accepted: false,
+              rejected: false,
+              notified: false,
+          };
 };
-
-
 
 const storeInLocalStorage = (data) => {
     localStorage.setItem("restaurant", JSON.stringify(data));
@@ -24,6 +29,7 @@ const restaurantSlice = createSlice({
             state.totalAmount = totalAmount;
             state.accepted = false;
             state.rejected = false;
+            state.notified = false;
             storeInLocalStorage(state);
             // setTimeout(() => {
             //     if (!state.accepted) {
@@ -37,10 +43,15 @@ const restaurantSlice = createSlice({
             state.rejected = false;
             storeInLocalStorage(state);
         },
-        
+
         rejectRestaurant: (state) => {
             state.accepted = false;
             state.rejected = true;
+            storeInLocalStorage(state);
+        },
+        notifyRestaurant: (state) => {
+            state.notified = true;
+
             storeInLocalStorage(state);
         },
         removeFromRestaurant: (state, action) => {
@@ -87,6 +98,7 @@ export const {
     addToRestaurant,
     acceptRestaurant,
     rejectRestaurant,
+    notifyRestaurant,
     removeFromRestaurant,
     toggleRestaurantQty,
     getRestaurantTotal,

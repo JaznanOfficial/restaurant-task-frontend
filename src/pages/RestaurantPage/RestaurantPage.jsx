@@ -13,12 +13,10 @@ const RestaurantPage = () => {
     const dispatch = useDispatch();
 
     const {
-        data: restaurantData,
         totalItems,
         totalAmount,
         accepted,
         rejected,
-        notified,
     } = useSelector((state) => state.restaurant);
 
     const handleAccept = () => {
