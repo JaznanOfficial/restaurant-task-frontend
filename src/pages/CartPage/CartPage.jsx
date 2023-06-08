@@ -71,7 +71,7 @@ const CartPage = () => {
 
         dispatch(addToRestaurant(data));
 
-        // dispatch(clearCart());
+        dispatch(clearCart());
         window.alert("Your order successfully placed");
     };
 
