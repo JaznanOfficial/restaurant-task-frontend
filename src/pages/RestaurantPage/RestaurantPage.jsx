@@ -7,6 +7,7 @@ import {
     getRestaurantTotal,
     clearRestaurant,
 } from "../../store/restaurantSlice";
+import { useEffect } from "react";
 
 const RestaurantPage = () => {
     const dispatch = useDispatch();
@@ -20,12 +21,6 @@ const RestaurantPage = () => {
         notified,
     } = useSelector((state) => state.restaurant);
 
-    setTimeout(() => {
-        if (accepted === false && rejected === false) {
-            dispatch(rejectRestaurant());
-        }
-    }, 5000);
-
     const handleAccept = () => {
         dispatch(acceptRestaurant());
     };
@@ -34,12 +29,27 @@ const RestaurantPage = () => {
         dispatch(rejectRestaurant());
     };
 
+    useEffect(() => {
+        let timeoutId = null;
+        if (accepted === false && rejected === false) {
+            timeoutId = setTimeout(() => {
+                dispatch(rejectRestaurant());
+            }, 5000);
+        }
+
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [accepted, rejected, dispatch]);
+
     return (
         <div>
             <div className="h-screen flex flex-col gap-4 items-start justify-start section ">
                 <div className="w-11/12 md:5/8 mx-auto border-2 border-b-4 border-gray-200 rounded-xl hover:bg-gray-50">
                     <p className="bg-black w-fit px-4 py-1 text-sm font-bold text-white rounded-tl-lg rounded-br-xl">
-                        {accepted === true && rejected === false ? "Accepted" : "Rejected"}
+                        {accepted === true && rejected === false && "Accepted"}
+                        {accepted === false && rejected === true && "Rejected"}
+                        {accepted === false && rejected === false && "Pending..."}
                     </p>
 
                     <div className="grid grid-cols-6 p-5 gap-y-2">

@@ -7,6 +7,8 @@ const fetchFromLocalStorage = () => {
         : { data: [], totalItems: 0, totalAmount: 0, accepted: false, rejected: false };
 };
 
+
+
 const storeInLocalStorage = (data) => {
     localStorage.setItem("restaurant", JSON.stringify(data));
 };
@@ -35,6 +37,7 @@ const restaurantSlice = createSlice({
             state.rejected = false;
             storeInLocalStorage(state);
         },
+        
         rejectRestaurant: (state) => {
             state.accepted = false;
             state.rejected = true;
