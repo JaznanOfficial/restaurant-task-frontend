@@ -1,26 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import productReducer from "./productSlice";
-import categoryReducer from "./categorySlice";
-import modalReducer from "./modalSlice";
-import cartReducer from "./cartSlice";
-import restaurantReducer, { addToRestaurant, clearRestaurant } from "./restaurantSlice";
+import cartSlice from "./shopping-cart/cartSlice";
+import cartUiSlice from "./shopping-cart/cartUiSlice";
 
 const store = configureStore({
-    reducer: {
-        product: productReducer,
-        category: categoryReducer,
-        modal: modalReducer,
-        cart: cartReducer,
-        restaurant: restaurantReducer,
-    },
+  reducer: {
+    cart: cartSlice.reducer,
+    cartUi: cartUiSlice.reducer,
+  },
 });
-
-// Load data from localStorage for restaurant slice
-const storedData = JSON.parse(localStorage.getItem("restaurant"));
-if (storedData) {
-    store.dispatch(addToRestaurant(storedData));
-} else {
-    store.dispatch(clearRestaurant());
-}
 
 export default store;
