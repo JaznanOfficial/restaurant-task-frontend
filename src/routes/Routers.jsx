@@ -10,7 +10,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 // import RestaurantRegister from "../components/Restaurant/RestaurantRegister";
 import Restaurant from "../components/Restaurant/Restaurant";
-import AllOrders from "../components/Restaurant/AllOrders";
+// import AllOrders from "../components/Restaurant/AllOrders";
 
 const Routers = () => {
     return (
