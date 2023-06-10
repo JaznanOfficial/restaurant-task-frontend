@@ -1,11 +1,13 @@
+import { Col, Row } from "reactstrap";
+
 const AllOrders = () => {
     return (
         <div className="my-5">
             <div className="container d-flex justify-content-center align-items-center mt-50 mb-50">
-                <div className="row row-cols-1 row-cols-md-3">
-                    <div className="col-md-12">
+                <div className="row">
+                    <div className="col-md-12 w-100">
                         <div className="card card-body">
-                            <div className="media align-items-center align-items-lg-start text-center text-lg-left d-flex flex-column flex-lg-row">
+                            <div className="w-100 media align-items-center align-items-lg-start text-center text-lg-left d-flex flex-column flex-lg-row">
                                 <div className="mr-2 mb-3 mb-lg-0 ">
                                     <img
                                         src="https://i.imgur.com/5Aqgz7o.jpg"
@@ -18,44 +20,47 @@ const AllOrders = () => {
 
                                 <div className="media-body text-center text-md-start mx-3 p-3">
                                     <h6 className="media-title font-weight-semibold">
-                                        <h1>
-                                            Apple iPhone XR (Red, 128 GB)
-                                        </h1>
+                                        <h1>Md Abdur rahman</h1>
                                     </h6>
 
-                                    <ul className="list-inline list-inline-dotted mb-3 mb-lg-2">
-                                        <li className="list-inline-item">
-                                            <a href="#" className="text-muted" data-abc="true">
-                                                Phones
-                                            </a>
-                                        </li>
-                                        <li className="list-inline-item">
-                                            <a href="#" className="text-muted" data-abc="true">
-                                                Mobiles
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    <div className="list-inline list-inline-dotted mb-3 mb-lg-2 w-100">
+                                        <div className="list-inline-item">
+                                            <address className="text-muted w-100" data-abc="true">
+                                                ABCD Road, Eiffel Tower, 25th Floor Khulna-9000
+                                            </address>
+                                        </div>
+                                    </div>
 
-                                    <p className="mb-3">
-                                        128 GB ROM | 15.49 cm (6.1 inch) Display 12MP Rear Camera |
-                                        7MP Front Camera A12 Bionic Chip Processor | Gorilla Glass
-                                        with high quality display{" "}
-                                    </p>
-
-                                    <ul className="list-inline list-inline-dotted mb-0">
-                                        <li className="list-inline-item">
-                                            All items from{" "}
-                                            <a href="#" data-abc="true">
-                                                Mobile point
-                                            </a>
-                                        </li>
-                                        <li className="list-inline-item">
-                                            Add to{" "}
-                                            <a href="#" data-abc="true">
-                                                wishlist
-                                            </a>
-                                        </li>
-                                    </ul>
+                                    {<Row>
+                                        <Col>
+                                            
+                                            <table className="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Image</th>
+                                                        <th>Product Title</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td className="text-center cart__img-box">
+                                                            <img src="https://i.imgur.com/5Aqgz7o.jpg" alt="" />
+                                                        </td>
+                                                        <td className="text-center">{'title'}</td>
+                                                        <td className="text-center">${'price'}</td>
+                                                        <td className="text-center">
+                                                            {'quantity'}px
+                                                        </td>
+                                                        
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                        </Col>
+                                    </Row>}
                                 </div>
 
                                 <div className="mt-3 mt-lg-0 ml-lg-3 text-center">
@@ -79,8 +84,6 @@ const AllOrders = () => {
                                 </div>
                             </div>
                         </div>
-
-                       
                     </div>
                 </div>
             </div>

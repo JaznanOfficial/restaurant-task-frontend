@@ -60,7 +60,7 @@ const Cart = () => {
     );
 };
 
-const Tr = (props) => {
+export const Tr = (props) => {
     const { id, image01, title, price, quantity } = props.item;
     const dispatch = useDispatch();
 
