@@ -1,5 +1,8 @@
 import { Col, Row } from "reactstrap";
 
+import '../../styles/cart-page.css'
+// import './AllOrders.css'
+
 const AllOrders = () => {
     return (
         <div className="my-5">
@@ -20,12 +23,12 @@ const AllOrders = () => {
 
                                 <div className="media-body text-center text-md-start mx-3 p-3">
                                     <h6 className="media-title font-weight-semibold">
-                                        <h1>Md Abdur rahman</h1>
+                                        <h1 >Md Abdur rahman</h1>
                                     </h6>
 
-                                    <div className="list-inline list-inline-dotted mb-3 mb-lg-2 w-100">
-                                        <div className="list-inline-item">
-                                            <address className="text-muted w-100" data-abc="true">
+                                    <div className="mb-3 mb-lg-2 w-100">
+                                        <div>
+                                            <address className="text-muted w-100 address" data-abc="true">
                                                 ABCD Road, Eiffel Tower, 25th Floor Khulna-9000
                                             </address>
                                         </div>
@@ -49,7 +52,7 @@ const AllOrders = () => {
                                                         <td className="text-center cart__img-box">
                                                             <img src="https://i.imgur.com/5Aqgz7o.jpg" alt="" />
                                                         </td>
-                                                        <td className="text-center">{'title'}</td>
+                                                        <td className="text-center">{'Double Cheese Margherita'}</td>
                                                         <td className="text-center">${'price'}</td>
                                                         <td className="text-center">
                                                             {'quantity'}px
