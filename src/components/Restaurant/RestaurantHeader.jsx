@@ -8,7 +8,7 @@ const categoryData = [
     {
         display: "All Orders",
         fsClass: "fa-solid fa-rectangle-list",
-        link: "all-orders",
+        link: "",
     },
     {
         display: "All foods",

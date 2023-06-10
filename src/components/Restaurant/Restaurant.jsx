@@ -8,9 +8,9 @@ const Restaurant = () => {
         <div className="my-5">
         <RestaurantHeader />
             <Routes>
-                <Route path="/rs-admin/*" element={''}>
-                    <Route path="all-orders" element={<AllOrders />} />
-                </Route>
+               
+                    <Route path="/" element={<AllOrders />} />
+               
             </Routes>
         </div>
     );
