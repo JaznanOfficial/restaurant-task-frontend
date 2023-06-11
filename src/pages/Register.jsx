@@ -3,11 +3,23 @@ import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Register = () => {
+    const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+
     const signupNameRef = useRef();
     const signupPasswordRef = useRef();
     const signupEmailRef = useRef();
+
+    const imageHandler = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -26,8 +38,12 @@ const Register = () => {
                                         <div className="shrink-0">
                                             <img
                                                 className="h-16 w-16 object-cover rounded-full"
-                                                src="https://ik.imagekit.io/ktdjfymfk/pexels-pixabay-164595__2__tD_vGRYs2.jpg?ik-sdk-version=javascript-1.4.3&updatedAt=1654163121780"
-                                                alt="s"
+                                                src={`${
+                                                    imagePreview
+                                                        ? imagePreview
+                                                        : "https://img.freepik.com/free-icon/user_318-159711.jpg"
+                                                }`}
+                                                alt="user"
                                             />
                                         </div>
                                         <label className="block">
@@ -35,12 +51,11 @@ const Register = () => {
                                             <input
                                                 type="file"
                                                 className="block w-full text-sm text-slate-500
-                 file:mr-4 file:py-2 file:px-4
-                 file:rounded-full file:border-0
-                 file:text-sm file:font-semibold
-                 file:bg-violet-50 file:text-violet-700
-                 hover:file:bg-violet-100
-               "
+                                                            file:mr-4 file:py-2 file:px-4
+                                                            file:rounded-full file:border-0
+                                                             file:text-sm file:font-semibold
+                                                             file:bg-violet-50 file:text-violet-7 hover:file:bg-violet-100"
+                                                onChange={imageHandler}
                                             />
                                         </label>
                                     </div>

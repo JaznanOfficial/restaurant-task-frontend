@@ -15,9 +15,10 @@ import RestaurantProductCard from "./RestaurantProductCard";
 
 const RestaurantAllFoods = () => {
     const [searchTerm, setSearchTerm] = useState("");
-
     const [pageNumber, setPageNumber] = useState(0);
     const [modal, setModal] = useState(false);
+    const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const searchedProduct = products.filter((item) => {
         if (searchTerm.value === "") {
@@ -41,6 +42,14 @@ const RestaurantAllFoods = () => {
     };
 
     const toggle = () => setModal(!modal);
+
+    const imageHandler = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
 
     return (
         <Helmet title="All-Foods">
@@ -114,7 +123,36 @@ const RestaurantAllFoods = () => {
                                             <form id="contact-form" role="form">
                                                 <div className="controls">
                                                     <div className="row">
-                                                        <div className="col-md-12">
+                                                        <div className="my-5 flex items-center shadow-md space-x-6 bg-white p-3 rounded-md">
+                                                            <div className="shrink-0">
+                                                                <img
+                                                                    className="h-16 w-16 object-cover rounded-full"
+                                                                    src={`${
+                                                                        imagePreview
+                                                                            ? imagePreview
+                                                                            : "https://img.freepik.com/free-vector/cute-burger-holding-knife-fork-cartoon-fast-food-icon-concept-isolated-flat-cartoon-style_138676-2204.jpg?q=10&h=200"
+                                                                    }`}
+                                                                    alt="food"
+                                                                />
+                                                            </div>
+                                                            <label className="block">
+                                                                <span className="sr-only">
+                                                                    Choose profile photo
+                                                                </span>
+                                                                <input
+                                                                    type="file"
+                                                                    className="block w-full text-sm text-slate-500
+                             file:mr-4 file:py-2 file:px-4
+                             file:rounded-full file:border-0
+                             file:text-sm file:font-semibold
+                             file:bg-violet-50 file:text-violet-700
+                             hover:file:bg-violet-100
+                           "
+                                                                    onChange={imageHandler}
+                                                                />
+                                                            </label>
+                                                        </div>
+                                                        <div className="col-md-12 my-2">
                                                             <div className="form-group">
                                                                 <label htmlFor="form_name">
                                                                     Food Name
@@ -125,14 +163,14 @@ const RestaurantAllFoods = () => {
                                                                     name="name"
                                                                     className="form-control"
                                                                     placeholder="Food Name *"
-                                                                    required="required"
+                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
-                                                        <div className="col-md-12">
+                                                        <div className="col-md-12  my-2">
                                                             <div className="form-group">
                                                                 <label htmlFor="form_lastname">
-                                                                    Lastname *
+                                                                    Price *
                                                                 </label>
                                                                 <input
                                                                     id="form_lastname"
@@ -140,13 +178,13 @@ const RestaurantAllFoods = () => {
                                                                     name="surname"
                                                                     className="form-control"
                                                                     placeholder="Food Price *"
-                                                                    required="required"
+                                                                    required
                                                                 />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div className="row">
-                                                        <div className="col-md-12">
+                                                        <div className="col-md-12  my-2">
                                                             <div className="form-group">
                                                                 <label htmlFor="form_need">
                                                                     Category *
@@ -155,7 +193,7 @@ const RestaurantAllFoods = () => {
                                                                     id="form_need"
                                                                     name="need"
                                                                     className="form-control"
-                                                                    required="required"
+                                                                    required
                                                                 >
                                                                     <option>Burger</option>
                                                                     <option>Bread</option>
@@ -166,7 +204,7 @@ const RestaurantAllFoods = () => {
                                                         </div>
                                                     </div>
                                                     <div className="row">
-                                                        <div className="col-md-12">
+                                                        <div className="col-md-12  my-2">
                                                             <div className="form-group">
                                                                 <label htmlFor="form_message">
                                                                     Message *
@@ -177,7 +215,7 @@ const RestaurantAllFoods = () => {
                                                                     className="form-control"
                                                                     placeholder="Write description here."
                                                                     rows="8"
-                                                                    required="required"
+                                                                    required
                                                                 ></textarea>
                                                             </div>
                                                         </div>
