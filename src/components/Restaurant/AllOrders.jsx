@@ -6,7 +6,7 @@ const AllOrders = () => {
     return (
         <div>
             <div className="container mt-5 mb-5">
-                <div className="d-flex justify-content-center row">
+                <div className="d-flex justify-content-center row mx-1">
                     <div className="col-md-12">
                         <div className="row p-2 bg-white border rounded">
                             <div className="col-md-3 mt-1">

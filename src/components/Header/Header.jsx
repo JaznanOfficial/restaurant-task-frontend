@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 
 import { Container } from "reactstrap";
 import logo from "../../assets/images/res-logo.png";
@@ -61,8 +61,7 @@ const Header = () => {
             <Container>
                 <div className="nav__wrapper d-flex align-items-center justify-content-between">
                     <div className="logo">
-                        <img src={logo} alt="logo" />
-                        <h5>Tasty Treat</h5>
+                        <img src={logo} alt="logo"  />
                     </div>
 
                     {/* ======= menu ======= */}
