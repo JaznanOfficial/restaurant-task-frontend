@@ -14,10 +14,12 @@ import "../styles/product-details.css";
 
 const RestaurantFoodDetails = () => {
     const [tab, setTab] = useState("desc");
-    const [enteredName, setEnteredName] = useState("");
-    const [enteredEmail, setEnteredEmail] = useState("");
-    const [reviewMsg, setReviewMsg] = useState("");
+    // const [enteredName, setEnteredName] = useState("");
+    // const [enteredEmail, setEnteredEmail] = useState("");
+    // const [reviewMsg, setReviewMsg] = useState("");
     const [modal, setModal] = useState(false);
+    const [image, setImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -27,8 +29,6 @@ const RestaurantFoodDetails = () => {
     const { title, price, category, desc, image01 } = product;
 
     const toggle = () => setModal(!modal);
-
-    
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -44,14 +44,22 @@ const RestaurantFoodDetails = () => {
         window.scrollTo(0, 0);
     }, [product]);
 
+    const imageHandler = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setImage(file);
+            setImagePreview(URL.createObjectURL(file));
+        }
+    };
+
     return (
         <Helmet title="Product-details">
             <CommonSection title={title} />
 
             <section>
                 <Container>
-                    <Row>
-                        <Col lg="2" md="2">
+                    <Row className="justify-content-center align-items-center">
+                        {/*  <Col lg="2" md="2">
                             <div className="product__images ">
                                 <div
                                     className="img__item mb-3"
@@ -73,11 +81,11 @@ const RestaurantFoodDetails = () => {
                                     <img src={product.image03} alt="" className="w-50" />
                                 </div>
                             </div>
-                        </Col>
+                        </Col> */}
 
-                        <Col lg="4" md="4">
+                        <Col lg="6" md="6">
                             <div className="product__main-img">
-                                <img src={previewImg} alt="" className="w-100" />
+                                <img src={image01} alt="" className="w-100" />
                             </div>
                         </Col>
 
@@ -95,7 +103,6 @@ const RestaurantFoodDetails = () => {
                                 <button onClick={toggle} className="btn btn-success mx-2">
                                     Edit Item
                                 </button>
-                                
                             </div>
                         </Col>
 
@@ -114,7 +121,7 @@ const RestaurantFoodDetails = () => {
                             </div>
                         </Col>
                     </Row>
-                    <Modal isOpen={modal} toggle={toggle} centered >
+                    <Modal isOpen={modal} toggle={toggle} centered>
                         <ModalHeader toggle={toggle}>
                             {" "}
                             <div className="d-flex justify-content-center">
@@ -131,104 +138,111 @@ const RestaurantFoodDetails = () => {
                                                     <form id="contact-form" role="form">
                                                         <div className="controls">
                                                             <div className="row">
-                                                                <div className="col-md-12">
+                                                                <div className="my-5 flex items-center shadow-md space-x-6 bg-white p-3 rounded-md">
+                                                                    <div className="shrink-0">
+                                                                        <img
+                                                                            className="h-16 w-16 object-cover rounded-full"
+                                                                            src={`${
+                                                                                imagePreview
+                                                                                    ? imagePreview
+                                                                                    : image01
+                                                                            }`}
+                                                                            alt="food"
+                                                                        />
+                                                                    </div>
+                                                                    <label className="block">
+                                                                        <span className="sr-only">
+                                                                            Choose profile photo
+                                                                        </span>
+                                                                        <input
+                                                                            type="file"
+                                                                            className="block w-full text-sm text-slate-500
+                             file:mr-4 file:py-2 file:px-4
+                             file:rounded-full file:border-0
+                             file:text-sm file:font-semibold
+                             file:bg-violet-50 file:text-violet-700
+                             hover:file:bg-violet-100
+                           "
+                                                                            onChange={imageHandler}
+                                                                            required
+                                                                        />
+                                                                    </label>
+                                                                </div>
+                                                                <div className="col-md-12 my-2">
                                                                     <div className="form-group">
                                                                         <label htmlFor="form_name">
                                                                             Food Name
                                                                         </label>
                                                                         <input
+                                                                            defaultValue={title}
                                                                             id="form_name"
                                                                             type="text"
                                                                             name="name"
                                                                             className="form-control"
                                                                             placeholder="Food Name *"
-                                                                            required="required"
-                                                                            defaultValue={title}
+                                                                            required
                                                                         />
                                                                     </div>
                                                                 </div>
-                                                                <div className="col-md-12">
+                                                                <div className="col-md-12  my-2">
                                                                     <div className="form-group">
                                                                         <label htmlFor="form_lastname">
-                                                                            Lastname *
+                                                                            Price *
                                                                         </label>
                                                                         <input
+                                                                            defaultValue={price}
                                                                             id="form_lastname"
                                                                             type="number"
                                                                             name="surname"
                                                                             className="form-control"
                                                                             placeholder="Food Price *"
-                                                                            required="required"
-                                                                            defaultValue={price}
+                                                                            required
                                                                         />
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className="row">
-                                                               {/*  <div className="col-md-12">
-                                                                    <div className="form-group">
-                                                                        <label htmlFor="form_email">
-                                                                            Email *
-                                                                        </label>
-                                                                        <input
-                                                                            id="form_email"
-                                                                            type="email"
-                                                                            name="email"
-                                                                            className="form-control"
-                                                                            placeholder="Please enter your email *"
-                                                                            required="required"
-                                                                            data-error="Valid email is required."
-                                                                        />
-                                                                    </div>
-                                                                </div> */}
-                                                                <div className="col-md-12">
+                                                                <div className="col-md-12  my-2">
                                                                     <div className="form-group">
                                                                         <label htmlFor="form_need">
-                                                                            Category
-                                                                            *
+                                                                            Category *
                                                                         </label>
                                                                         <select
                                                                             id="form_need"
                                                                             name="need"
                                                                             className="form-control"
-                                                                            required="required"
-                                                                            
+                                                                            required
                                                                         >
                                                                             <option
-                                                                                defaultValue={category}
-                                                                                selected
                                                                                 disabled
+                                                                                defaultChecked={
+                                                                                    category
+                                                                                }
                                                                             >
                                                                                 {category}
                                                                             </option>
-                                                                            <option>
-                                                                                Burger
-                                                                            </option>
-                                                                            <option>
-                                                                                Bread
-                                                                            </option>
-                                                                            <option>
-                                                                                Pizza
-                                                                            </option>
+                                                                            <option>Burger</option>
+                                                                            <option>Bread</option>
+                                                                            <option>Pizza</option>
                                                                             <option>Other</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div className="row">
-                                                                <div className="col-md-12">
+                                                                <div className="col-md-12  my-2">
                                                                     <div className="form-group">
                                                                         <label htmlFor="form_message">
                                                                             Message *
                                                                         </label>
                                                                         <textarea
+                                                                            defaultValue={desc}
                                                                             id="form_message"
                                                                             name="message"
                                                                             className="form-control"
                                                                             placeholder="Write description here."
                                                                             rows="8"
-                                                                            required="required"
-                                                                            defaultValue={desc}
+                                                                            required
                                                                         ></textarea>
                                                                     </div>
                                                                 </div>
@@ -254,7 +268,6 @@ const RestaurantFoodDetails = () => {
                                 </div>
                             </div>
                         </ModalBody>
-                       
                     </Modal>
                 </Container>
             </section>
