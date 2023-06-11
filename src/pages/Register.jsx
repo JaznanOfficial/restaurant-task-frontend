@@ -63,7 +63,7 @@ const Register = () => {
                                                              file:bg-violet-50 file:text-violet-7 hover:file:bg-violet-100"
                                                 onChange={imageHandler}
                                                 required
-                                                accept=".png,.jpg,.jpeg"
+                                                accept=".png,.jpg,"
                                             />
                                         </label>
                                     </div>

@@ -12,6 +12,7 @@ import ReactPaginate from "react-paginate";
 import "../styles/all-foods.css";
 import "../styles/pagination.css";
 import RestaurantProductCard from "./RestaurantProductCard";
+import { useRef } from "react";
 
 const RestaurantAllFoods = () => {
     const [searchTerm, setSearchTerm] = useState("");
@@ -19,6 +20,10 @@ const RestaurantAllFoods = () => {
     const [modal, setModal] = useState(false);
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const nameRef = useRef();
+    const priceRef = useRef();
+    const categoryRef = useRef();
+    const descriptionRef = useRef();
 
     const searchedProduct = products.filter((item) => {
         if (searchTerm.value === "") {
@@ -49,6 +54,17 @@ const RestaurantAllFoods = () => {
             setImage(file);
             setImagePreview(URL.createObjectURL(file));
         }
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        const name = nameRef.current.value;
+        const price = priceRef.current.value;
+        const category = categoryRef.current.value;
+        const description = descriptionRef.current.value;
+        // const image = image;
+        const productData = { name, price, category, description, image };
+        console.log(productData);
     };
 
     return (
@@ -120,7 +136,11 @@ const RestaurantAllFoods = () => {
                                 <div className="card mt-2 mx-auto p-1 bg-light">
                                     <div className="card-body bg-light">
                                         <div>
-                                            <form id="contact-form" role="form">
+                                            <form
+                                                id="contact-form"
+                                                role="form"
+                                                onSubmit={submitHandler}
+                                            >
                                                 <div className="controls">
                                                     <div className="row">
                                                         <div className="my-5 flex items-center shadow-md space-x-6 bg-white p-3 rounded-md">
@@ -165,6 +185,7 @@ const RestaurantAllFoods = () => {
                                                                     className="form-control"
                                                                     placeholder="Food Name *"
                                                                     required
+                                                                    ref={nameRef}
                                                                 />
                                                             </div>
                                                         </div>
@@ -180,6 +201,7 @@ const RestaurantAllFoods = () => {
                                                                     className="form-control"
                                                                     placeholder="Food Price *"
                                                                     required
+                                                                    ref={priceRef}
                                                                 />
                                                             </div>
                                                         </div>
@@ -195,6 +217,7 @@ const RestaurantAllFoods = () => {
                                                                     name="need"
                                                                     className="form-control"
                                                                     required
+                                                                    ref={categoryRef}
                                                                 >
                                                                     <option>Burger</option>
                                                                     <option>Bread</option>
@@ -217,13 +240,15 @@ const RestaurantAllFoods = () => {
                                                                     placeholder="Write description here."
                                                                     rows="8"
                                                                     required
+                                                                    ref={descriptionRef}
                                                                 ></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <button
-                                                        className="btn btn-success mt-3"
+                                                        className="btn bg-success text-white mt-3"
                                                         onClick={toggle}
+                                                        type="submit"
                                                     >
                                                         Confirm Update
                                                     </button>{" "}

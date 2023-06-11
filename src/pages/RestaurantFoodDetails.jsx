@@ -7,37 +7,32 @@ import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 
 import { useDispatch } from "react-redux";
-import { cartActions } from "../store/shopping-cart/cartSlice";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+// import { cartActions } from "../store/shopping-cart/cartSlice";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 import "../styles/product-details.css";
+import { useRef } from "react";
 
 const RestaurantFoodDetails = () => {
     const [tab, setTab] = useState("desc");
-    // const [enteredName, setEnteredName] = useState("");
-    // const [enteredEmail, setEnteredEmail] = useState("");
-    // const [reviewMsg, setReviewMsg] = useState("");
     const [modal, setModal] = useState(false);
-    const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
+    const nameRef = useRef();
+    const priceRef = useRef();
+    const categoryRef = useRef();
+    const descriptionRef = useRef();
 
     const { id } = useParams();
     const dispatch = useDispatch();
-
+    
     const product = products.find((product) => product.id === id);
-    const [previewImg, setPreviewImg] = useState(product.image01);
     const { title, price, category, desc, image01 } = product;
+    const [image, setImage] = useState(image01 || null);
 
     const toggle = () => setModal(!modal);
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-
-        console.log(enteredName, enteredEmail, reviewMsg);
-    };
-
     useEffect(() => {
-        setPreviewImg(product.image01);
+        setImagePreview(product.image01);
     }, [product]);
 
     useEffect(() => {
@@ -50,6 +45,19 @@ const RestaurantFoodDetails = () => {
             setImage(file);
             setImagePreview(URL.createObjectURL(file));
         }
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        // console.log("hello bangladesh");
+        const name = nameRef.current.value;
+        const price = priceRef.current.value;
+        const category = categoryRef.current.value;
+        const description = descriptionRef.current.value;
+        // const image = image;
+        const productData = { name, price, category, description, image};
+        console.log(productData);
     };
 
     return (
@@ -135,7 +143,7 @@ const RestaurantFoodDetails = () => {
                                         <div className="card mt-2 mx-auto p-1 bg-light">
                                             <div className="card-body bg-light">
                                                 <div>
-                                                    <form id="contact-form" role="form">
+                                                    <form onSubmit={submitHandler}>
                                                         <div className="controls">
                                                             <div className="row">
                                                                 <div className="my-5 flex items-center shadow-md space-x-6 bg-white p-3 rounded-md">
@@ -164,7 +172,8 @@ const RestaurantFoodDetails = () => {
                              hover:file:bg-violet-100
                            "
                                                                             onChange={imageHandler}
-                                                                            required
+                                                                            // required
+                                                                            accept=".png,.jpg"
                                                                         />
                                                                     </label>
                                                                 </div>
@@ -181,6 +190,7 @@ const RestaurantFoodDetails = () => {
                                                                             className="form-control"
                                                                             placeholder="Food Name *"
                                                                             required
+                                                                            ref={nameRef}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -197,6 +207,7 @@ const RestaurantFoodDetails = () => {
                                                                             className="form-control"
                                                                             placeholder="Food Price *"
                                                                             required
+                                                                            ref={priceRef}
                                                                         />
                                                                     </div>
                                                                 </div>
@@ -212,6 +223,7 @@ const RestaurantFoodDetails = () => {
                                                                             name="need"
                                                                             className="form-control"
                                                                             required
+                                                                            ref={categoryRef}
                                                                         >
                                                                             <option
                                                                                 disabled
@@ -236,6 +248,7 @@ const RestaurantFoodDetails = () => {
                                                                             Message *
                                                                         </label>
                                                                         <textarea
+                                                                            ref={descriptionRef}
                                                                             defaultValue={desc}
                                                                             id="form_message"
                                                                             name="message"
@@ -248,8 +261,9 @@ const RestaurantFoodDetails = () => {
                                                                 </div>
                                                             </div>
                                                             <button
-                                                                className="btn btn-success mt-3"
+                                                                className="btn bg-success text-white mt-3"
                                                                 onClick={toggle}
+                                                                type="submit"
                                                             >
                                                                 Confirm Update
                                                             </button>{" "}
