@@ -114,7 +114,7 @@ const RestaurantFoodDetails = () => {
                             </div>
                         </Col>
                     </Row>
-                    <Modal isOpen={modal} toggle={toggle}>
+                    <Modal isOpen={modal} toggle={toggle} centered >
                         <ModalHeader toggle={toggle}>
                             {" "}
                             <div className="d-flex justify-content-center">
