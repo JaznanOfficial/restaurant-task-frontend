@@ -5,13 +5,15 @@ import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 
 import products from "../assets/fake-data/products";
-import ProductCard from "../components/UI/product-card/ProductCard";
+// import ProductCard from "../components/UI/product-card/ProductCard";
 import ReactPaginate from "react-paginate";
+// import RestaurantProductCard from "./RestaurantProductCard";
 
 import "../styles/all-foods.css";
 import "../styles/pagination.css";
+import RestaurantProductCard from "./RestaurantProductCard";
 
-const AllFoods = () => {
+const RestaurantAllFoods = () => {
     const [searchTerm, setSearchTerm] = useState("");
 
     const [pageNumber, setPageNumber] = useState(0);
@@ -27,7 +29,7 @@ const AllFoods = () => {
         }
     });
 
-    const productPerPage = 12;
+    const productPerPage = 8;
     const visitedPage = pageNumber * productPerPage;
     const displayPage = searchedProduct.slice(visitedPage, visitedPage + productPerPage);
 
@@ -39,7 +41,7 @@ const AllFoods = () => {
 
     return (
         <Helmet title="All-Foods">
-            <CommonSection title="All Foods" />
+            <CommonSection title="Restaurant's All Foods" />
 
             <section>
                 <Container>
@@ -71,7 +73,7 @@ const AllFoods = () => {
 
                         {displayPage.map((item) => (
                             <Col lg="3" md="4" sm="6" xs="6" key={item.id} className="mb-4">
-                                <ProductCard item={item} />
+                                <RestaurantProductCard item={item} />
                             </Col>
                         ))}
 
@@ -91,4 +93,4 @@ const AllFoods = () => {
     );
 };
 
-export default AllFoods;
+export default RestaurantAllFoods;

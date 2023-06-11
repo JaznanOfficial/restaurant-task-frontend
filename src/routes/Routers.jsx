@@ -10,6 +10,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 // import RestaurantRegister from "../components/Restaurant/RestaurantRegister";
 import Restaurant from "../components/Restaurant/Restaurant";
+import RestaurantFoodDetails from "../pages/RestaurantFoodDetails";
 // import AllOrders from "../components/Restaurant/AllOrders";
 
 const Routers = () => {
@@ -24,6 +25,7 @@ const Routers = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/rs-foodDetails/:id" element={<RestaurantFoodDetails />} />
             {/* <Route path="/all-orders" element={<AllOrders />} /> */}
             <Route path="/rs-admin/*" element={<Restaurant />}>
                 {/* <Route path="all-orders" element={<AllOrders />} /> */}

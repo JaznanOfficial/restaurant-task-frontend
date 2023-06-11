@@ -22,10 +22,10 @@ const nav__links = [
         display: "Restaurant-Admin",
         path: "/rs-admin",
     },
-    {
-      display: "Cart",
-      path: "/cart",
-    },
+    // {
+    //   display: "Cart",
+    //   path: "/cart",
+    // },
     // {
     //   display: "Contact",
     //   path: "/contact",
