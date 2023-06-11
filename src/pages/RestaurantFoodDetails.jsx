@@ -90,7 +90,7 @@ const RestaurantFoodDetails = () => {
                         </Col>
 
                         <Col lg="6" md="6">
-                            <div className="single__product-content">
+                            <div className="single__product-content justify-center items-center">
                                 <h2 className="product__title mb-3">{title}</h2>
                                 <p className="product__price">
                                     {" "}

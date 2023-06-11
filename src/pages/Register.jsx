@@ -9,9 +9,9 @@ const Register = () => {
     const [image, setImage] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
 
-    const signupNameRef = useRef();
-    const signupPasswordRef = useRef();
-    const signupEmailRef = useRef();
+    const nameRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
 
     const imageHandler = (e) => {
         const file = e.target.files[0];
@@ -23,6 +23,12 @@ const Register = () => {
 
     const submitHandler = (e) => {
         e.preventDefault();
+        const name = nameRef.current.value;
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+        // const image = image;
+        const registerData = { name, email, password, image }
+        console.log(registerData)
     };
 
     return (
@@ -57,6 +63,7 @@ const Register = () => {
                                                              file:bg-violet-50 file:text-violet-7 hover:file:bg-violet-100"
                                                 onChange={imageHandler}
                                                 required
+                                                accept=".png,.jpg,.jpeg"
                                             />
                                         </label>
                                     </div>
@@ -66,7 +73,7 @@ const Register = () => {
                                         type="text"
                                         placeholder="Full name"
                                         required
-                                        ref={signupNameRef}
+                                        ref={nameRef}
                                     />
                                 </div>
                                 <div className="form__group">
@@ -74,7 +81,7 @@ const Register = () => {
                                         type="email"
                                         placeholder="Email"
                                         required
-                                        ref={signupEmailRef}
+                                        ref={emailRef}
                                     />
                                 </div>
                                 <div className="form__group">
@@ -82,7 +89,7 @@ const Register = () => {
                                         type="password"
                                         placeholder="Password"
                                         required
-                                        ref={signupPasswordRef}
+                                        ref={passwordRef}
                                     />
                                 </div>
                                 <button type="submit" className="btn bg-danger text-white">

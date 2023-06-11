@@ -1,15 +1,20 @@
-import  { useRef } from "react";
+import { useRef } from "react";
 import Helmet from "../components/Helmet/Helmet";
 import CommonSection from "../components/UI/common-section/CommonSection";
 import { Container, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 
 const Login = () => {
-    const loginNameRef = useRef();
-    const loginPasswordRef = useRef();
+    const emailRef = useRef();
+    const passwordRef = useRef();
 
     const submitHandler = (e) => {
         e.preventDefault();
+        const email = emailRef.current.value;
+        const password = passwordRef.current.value;
+
+        const loginData = { email, password };
+        console.log(loginData);
     };
 
     return (
@@ -25,7 +30,7 @@ const Login = () => {
                                         type="email"
                                         placeholder="Email"
                                         required
-                                        ref={loginNameRef}
+                                        ref={emailRef}
                                     />
                                 </div>
                                 <div className="form__group">
@@ -33,7 +38,7 @@ const Login = () => {
                                         type="password"
                                         placeholder="Password"
                                         required
-                                        ref={loginPasswordRef}
+                                        ref={passwordRef}
                                     />
                                 </div>
                                 <button type="submit" className="btn bg-danger text-white">
