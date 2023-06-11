@@ -27,18 +27,8 @@ const RestaurantFoodDetails = () => {
     const { title, price, category, desc, image01 } = product;
 
     const toggle = () => setModal(!modal);
-    const relatedProduct = products.filter((item) => category === item.category);
 
-    const addItem = () => {
-        dispatch(
-            cartActions.addItem({
-                id,
-                title,
-                price,
-                image01,
-            })
-        );
-    };
+    
 
     const submitHandler = (e) => {
         e.preventDefault();
