@@ -149,6 +149,7 @@ const RestaurantAllFoods = () => {
                              hover:file:bg-violet-100
                            "
                                                                     onChange={imageHandler}
+                                                                    required
                                                                 />
                                                             </label>
                                                         </div>
