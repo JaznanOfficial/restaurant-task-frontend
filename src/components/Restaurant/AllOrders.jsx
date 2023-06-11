@@ -69,10 +69,10 @@ const AllOrders = () => {
                                     Free shipping
                                 </h6>
                                 <div className="d-flex flex-column mt-4 text-center text-md-start">
-                                    <button className="btn btn-success btn-sm btn-bg-success" type="button">
+                                    <button className="btn btn-success btn-sm">
                                         Accept
                                     </button>
-                                    <button className="addTOCart__btn btn-sm mt-2" type="button">
+                                    <button className="addTOCart__btn btn-sm mt-2" >
                                         Reject
                                     </button>
                                 </div>
